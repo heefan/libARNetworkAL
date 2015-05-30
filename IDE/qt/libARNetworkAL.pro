@@ -1,7 +1,3 @@
-TARGET = arnetworkal
-TEMPLATE = lib
-CONFIG = static
-
 linux-g++ {
     include(/home/heefan/drone/drone_client/IDE/qt/common.pri)
 }
@@ -10,18 +6,26 @@ macx{
     include(/Users/heefan/drone/drone_client/IDE/qt/common.pri)
 }
 
+TARGET = arnetworkal
+TEMPLATE = lib
+CONFIG += static
+CONFIG += debug
+DESTDIR = $$SdkInstallPath_lib
+
 SOURCES += \
     $$LibARNetworkAL_src/*.c \
     $$LibARNetworkAL_src/Wifi/*.c \
 
 HEADERS += \
-    $$LibARNetworkAL_src/*.h \
-    $$LibARNetworkAL_src/Wifi/*.h \
+#    $$LibARNetworkAL_src/*.h \
+#    $$LibARNetworkAL_src/Wifi/*.h \
+    $$LibARNetworkAL_inc/libARNetworkAL/*.h \
 
 INCLUDEPATH += \
-    /usr/include/ \
-    /usr/local/include \
-    $$LibARNetworkALRoot/Build \   #config.h
-    $$LibARNetworkAL_src \
+    $$SdkInstallPath_inc \
+    $$LibARNetworkAL/Build \   #config.h
+    $$LibARNetworkAL_src \     #private header for libARNetworkAL
 
-LIBS += -L/usr/local/lib -larsal
+LIBS +=  \
+    -L$$SdkInstallPath_lib \
+    -larsal
